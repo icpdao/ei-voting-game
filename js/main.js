@@ -26,7 +26,7 @@ window.onload = function(){
 		slideSelect.dom.style.display = "none";
 		subscribe("start/game", function(){
 			slideSelect.dom.style.display = "block";
-			$("#translations").style.display = "none";
+			// $("#translations").style.display = "none";
 
 			// [FOR DEBUGGING]
 			publish("slideshow/next");
@@ -35,7 +35,7 @@ window.onload = function(){
 		});
 
 		// SOUND
-		var _soundIsOn = true;
+		var _soundIsOn = false;
 		$("#sound").onclick = function(){
 			_soundIsOn = !_soundIsOn;
 			Howler.mute(!_soundIsOn);

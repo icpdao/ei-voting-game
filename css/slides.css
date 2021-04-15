@@ -378,6 +378,32 @@ s{
     left: 50px;
 }
 
+
+.silder_input_pop{
+	position: absolute;
+}
+.silder_input>div{
+	position: absolute;
+}
+.silder_input_label{
+	font-size: 18px;
+    width: 90px;
+    top: 8px;
+	left: 20px;
+}
+.silder_input_amount{
+	font-size: 18px;
+    width: 30px;
+    top: 9px;
+	left: 110px;
+}
+.silder_input_unit{
+	font-size: 18px;
+    width: 50px;
+    top: 8px;
+	left: 140px;
+}
+
 /*************************/
 /******* SCRATCHER *******/
 /*************************/
@@ -452,10 +478,13 @@ s{
 .character #peep[char=random]{ background-position: -735px 0; }
 
 .tft{ color:#4089DD; }
+.oneself{ color:#4089DD; }
 .all_d{ color:#52537F; }
+.greedy{ color:#52537F; }
 .all_c{ color:#FF75FF; }
 .grudge{ color:#efc701; }
 .prober{ color:#f6b24c; }
+.honest{ color:#f6b24c; }
 .tf2t{ color:#88A8CE; }
 .pavlov{ color:#86C448; }
 .random{ color:#FF5E5E; }
@@ -482,7 +511,9 @@ s{
 .tf2t .icon{ 	background-position: -125px 0; }
 .pavlov .icon{ 	background-position: -150px 0; }
 .random .icon{ 	background-position: -175px 0; }
-
+.honest .icon { background-position: -100px 0; }
+.greedy .icon { background-position: -25px 0; }
+.oneself .icon { background-position: 0 0; }
 /*************************/
 /******* MISC STUFF *******/
 /*************************/
@@ -543,3 +574,25 @@ s{
 	color:#ee5151;
 }
 
+.dialogue_box {
+	height: 45px;
+	display: flex;
+	flex-direction: row;
+}
+.dialgoue_box_tips {
+	border-style: solid;
+	width: 0px;  
+	height: 0px;  
+	border-width: 9px;  
+	border-color: transparent #282828 transparent transparent; 
+	margin-top: 12.5px;
+}
+.dialgoue_box_pop {
+	width: 181px;
+	height: 45px;
+	line-height: 45px;
+	background: #282828;
+	border-radius: 5px;
+	text-align: center;
+	color: #fff;
+}

@@ -54,7 +54,7 @@ SLIDES.push({
 		// TITLE TEXT
 		self.add({
 			id:"title", type:"TextBox",
-			x:130, y:80, width:700,
+			x:130, y:180, width:700,
 			size:100, lineHeight:0.9, align:"center",
 			text_id:"title"
 		});
@@ -85,7 +85,7 @@ SLIDES.push({
 			o.loading_button.activate();
 			o.loading_button.config.onclick = function(){
 				publish("start/game");
-				Loader.sounds.bg_music.volume(0.75).loop(true).play(); // play music!
+				// Loader.sounds.bg_music.volume(0.75).loop(true).play(); // play music!
 			};
 		});
 

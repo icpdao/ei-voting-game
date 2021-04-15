@@ -6,7 +6,10 @@ var PEEP_METADATA = {
 	prober: {frame:4, color:"#f6b24c"},
 	  tf2t: {frame:5, color:"#88A8CE"},
 	pavlov: {frame:6, color:"#86C448"},
-	random: {frame:7, color:"#FF5E5E"}
+	random: {frame:7, color:"#FF5E5E"},
+	honest: { frame: 4, color: "#f6b24c" },
+	greedy: { frame: 1, color: "#52537F" },
+	oneself: { frame: 0, color: "#4089DD" },
 };
 
 var PD = {};
@@ -136,6 +139,17 @@ function Logic_tft(){
 	};
 }
 
+function Logic_oneself() {
+	var self = this;
+	var otherMove = PD.COOPERATE;
+	self.play = function () {
+		return otherMove;
+	};
+	self.remember = function (own, other) {
+		otherMove = other;
+	};
+}
+
 function Logic_tf2t(){
 	var self = this;
 	var howManyTimesCheated = 0;
@@ -177,6 +191,16 @@ function Logic_all_d(){
 	};
 }
 
+function Logic_greedy() {
+	var self = this;
+	self.play = function () {
+		return PD.CHEAT;
+	};
+	self.remember = function (own, other) {
+		// nah
+	};
+}
+
 function Logic_all_c(){
 	var self = this;
 	self.play = function(){
@@ -208,6 +232,18 @@ function Logic_pavlov(){
 	self.remember = function(own, other){
 		myLastMove = own; // remember MISTAKEN move
 		if(other==PD.CHEAT) myLastMove = ((myLastMove==PD.COOPERATE) ? PD.CHEAT : PD.COOPERATE); // switch!
+	};
+}
+
+function Logic_honest() {
+	var self = this;
+	var myLastMove = PD.COOPERATE;
+	self.play = function () {
+		return myLastMove;
+	};
+	self.remember = function (own, other) {
+		myLastMove = own; // remember MISTAKEN move
+		if (other == PD.CHEAT) myLastMove = ((myLastMove == PD.COOPERATE) ? PD.CHEAT : PD.COOPERATE); // switch!
 	};
 }
 
