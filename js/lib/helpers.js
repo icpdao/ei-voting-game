@@ -194,9 +194,9 @@ function getRandomIntInclusive(min, max) {
 
 function kmSimplePair(sizes) {
 	let paired = { 1: [], 2: [], 3: [] }
-	const p1 = [...sizes[1], ...sizes[1]]
-	const p2 = [...sizes[2], ...sizes[2]]
-	const p3 = [...sizes[3], ...sizes[3]]
+	const p1 = sizes[1].concat(sizes[1])
+	const p2 = sizes[2].concat(sizes[2])
+	const p3 = sizes[3].concat(sizes[3])
 	p1.forEach((p) => {
 		const r = getRandomIntInclusive(0, p2.length + p3.length - 1)
 		let q = [...p2, ...p3][r]
