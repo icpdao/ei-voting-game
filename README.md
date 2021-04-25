@@ -35,6 +35,3 @@ We have borrowed the code of [The Evolution of Trust](https://github.com/ncase/t
 
 **Font:** [Futura Handwritten](http://www.dafont.com/futurahandwritten.font) by Bill Snyder
 
-#	"LICENSE"
-
-[Creative Commons Zero](https://github.com/ncase/trust/blob/gh-pages/LICENSE): it's a public domain dedication, so basically, do whatever you want! Attribution is super appreciated, but I'm not gonna send legal goons after you or anything.
