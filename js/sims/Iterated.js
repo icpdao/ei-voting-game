@@ -1,17 +1,17 @@
 Loader.addToManifest(Loader.manifest,{
 
-	iterated_coin: "assets/iterated/iterated_coin.json",
-	iterated_machine: "assets/iterated/iterated_machine.json",
-	iterated_payoffs: "assets/iterated/iterated_payoffs.json",
-	iterated_peep: "assets/iterated/iterated_peep.json",
+	iterated_coin: "/assets/iterated/iterated_coin.json",
+	iterated_machine: "/assets/iterated/iterated_machine.json",
+	iterated_payoffs: "/assets/iterated/iterated_payoffs.json",
+	iterated_peep: "/assets/iterated/iterated_peep.json",
 
 	// SFX
-	coin_insert: "assets/sounds/coin_insert.mp3",
-	coin_get: "assets/sounds/coin_get.mp3",
-	evil_laugh: "assets/sounds/evil_laugh.mp3",
-	whoosh: "assets/sounds/whoosh.mp3",
-	thump: "assets/sounds/thump.mp3",
-	machine_start: "assets/sounds/machine_start.mp3"
+	coin_insert: "/assets/sounds/coin_insert.mp3",
+	coin_get: "/assets/sounds/coin_get.mp3",
+	evil_laugh: "/assets/sounds/evil_laugh.mp3",
+	whoosh: "/assets/sounds/whoosh.mp3",
+	thump: "/assets/sounds/thump.mp3",
+	machine_start: "/assets/sounds/machine_start.mp3"
 
 });
 

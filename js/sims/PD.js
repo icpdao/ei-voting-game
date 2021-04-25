@@ -23,7 +23,16 @@ PD.PAYOFFS_DEFAULT = {
 	T: 3 // temptation: you put no coin, got 3 coins anyway
 };
 
+PD.PEEP_INCOME_DEFAULT = {
+	honest: [0.6, 0.9], // honest ei always high
+	greedy: [0.5, 0.5], // greedy ei always lows
+	oneself: [0.9, 1.1], // oneself ei normal
+}
+
 PD.PAYOFFS = JSON.parse(JSON.stringify(PD.PAYOFFS_DEFAULT));
+PD.PEEP_INCOME = function (i) {
+	return getRandomIntInclusive(PD.PEEP_INCOME_DEFAULT[i][0] * 10, PD.PEEP_INCOME_DEFAULT[i][1] * 10) / 10
+}
 
 subscribe("pd/editPayoffs", function(payoffs){
 	PD.PAYOFFS = payoffs;
@@ -56,6 +65,10 @@ PD.getPayoffs = function(move1, move2){
 	if(move1==PD.COOPERATE && move2==PD.COOPERATE) return [payoffs.R, payoffs.R]; // both rewarded
 };
 
+PD.getIncome = function(a, b) {
+	return [PD.PEEP_INCOME(a), PD.PEEP_INCOME(b)]
+}
+
 PD.playOneGame = function(playerA, playerB){
 
 	// Make your moves!
@@ -65,17 +78,17 @@ PD.playOneGame = function(playerA, playerB){
 	// Noise: random mistakes, flip around!
 	if(Math.random()<PD.NOISE) A = ((A==PD.COOPERATE) ? PD.CHEAT : PD.COOPERATE);
 	if(Math.random()<PD.NOISE) B = ((B==PD.COOPERATE) ? PD.CHEAT : PD.COOPERATE);
-	
+
 	// Get payoffs
-	var payoffs = PD.getPayoffs(A,B);
+	var payoffs = PD.getIncome(playerA.strategyName, playerB.strategyName);
 
 	// Remember own & other's moves (or mistakes)
 	playerA.remember(A, B);
 	playerB.remember(B, A);
 
 	// Add to scores (only in tournament?)
-	playerA.addPayoff(payoffs[0]);
-	playerB.addPayoff(payoffs[1]);
+	playerA.setRV(payoffs[0]);
+	playerB.setRV(payoffs[0]);
 
 	// Return the payoffs...
 	return payoffs;

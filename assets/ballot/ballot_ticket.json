@@ -1,0 +1,19 @@
+﻿{"frames": {
+
+"ballot_ticket0000":
+{
+	"frame": {"x":26,"y":24,"w":250,"h":122},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":250,"h":122},
+	"sourceSize": {"w":250,"h":122}
+}},
+"meta": {
+	"app": "Adobe Animate",
+	"version": "15.2.0.66",
+	"image": "ballot_ticket.png",
+	"format": "RGBA8888",
+	"size": {"w":290,"h":159},
+	"scale": "1"
+}
+}

@@ -185,3 +185,41 @@ function _shuffleArray(array) {
 	}
 	return array;
 }
+
+function getRandomIntInclusive(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function kmSimplePair(sizes) {
+	let paired = { 1: [], 2: [], 3: [] }
+	const p1 = [...sizes[1], ...sizes[1]]
+	const p2 = [...sizes[2], ...sizes[2]]
+	const p3 = [...sizes[3], ...sizes[3]]
+	p1.forEach((p) => {
+		const r = getRandomIntInclusive(0, p2.length + p3.length - 1)
+		let q = [...p2, ...p3][r]
+		if (r >= p2.length) {
+			paired[2].push([{ i: 1, p }, { i: 3, p: q }])
+			p3.splice(r, 1)
+		} else {
+			paired[3].push([{ i: 1, p }, { i: 2, p: q }])
+			p2.splice(r, 1)
+		}
+	})
+	p2.forEach((p) => {
+		const r = getRandomIntInclusive(0, p3.length - 1)
+		let q = p3[r]
+		p3.splice(r, 1)
+		paired[1].push([{ i: 2, p }, { i: 3, p: q }])
+	})
+	for (let i = 0; i < p3.length; i += 2) {
+		if (p3[i] && p3[i + 1]) {
+			if (paired[1].length > paired[2].length) paired[2].push([{ i: 3, p: p3[i] }, { i: 3, p: p3[i + 1] }])
+			else paired[1].push([{ i: 3, p: p3[i] }, { i: 3, p: p3[i + 1] }])
+		}
+	}
+
+	return [paired[1], paired[2], paired[3]]
+}

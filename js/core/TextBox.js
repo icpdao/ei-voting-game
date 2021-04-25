@@ -20,7 +20,9 @@ function TextBox(config){
 		self.setText(Words.get(self.text_id));
 	};
 	if(config.text_id) self.setTextID(config.text_id);
-	else if(config.text) self.setText(config.text);
+	else if(config.text != undefined) self.setText(config.text);
+
+	if (config.color != undefined) self.dom.style.color = config.color;
 
 	// Add & Remove
 	self.add = function(){ _add(self); };

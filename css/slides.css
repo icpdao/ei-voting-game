@@ -170,6 +170,20 @@ s{
 	position: absolute;
 }
 
+/********* Size Box ********/
+
+.sizebox {
+	height: 60px;
+	width: 60px;
+	color: #fff;
+	font-size: 1.5em;
+	font-weight: 600;
+	line-height: 60px;
+	text-align: center;
+	cursor: pointer;
+	user-select: none;
+}
+
 /********* Button ********/
 
 .no-select{
@@ -579,6 +593,7 @@ s{
 	display: flex;
 	flex-direction: row;
 }
+
 .dialgoue_box_tips {
 	border-style: solid;
 	width: 0px;  
@@ -587,6 +602,17 @@ s{
 	border-color: transparent #282828 transparent transparent; 
 	margin-top: 12.5px;
 }
+
+.dialgoue_box_tips_right {
+	border-style: solid;
+	width: 0px;  
+	height: 0px;  
+	border-width: 9px;  
+	border-color: transparent #282828 transparent transparent; 
+	margin-top: 12.5px;
+	transform: rotate(180deg);
+}
+
 .dialgoue_box_pop {
 	width: 181px;
 	height: 45px;
@@ -595,4 +621,20 @@ s{
 	border-radius: 5px;
 	text-align: center;
 	color: #fff;
+}
+
+.ballot_ticket {
+	width: 50px;
+	height: 30px;
+	background: url(../assets/ballot/ballot_ticket.png);
+	background-size: 100% 100%;
+	display: inline-block;
+}
+
+.ending a {
+	color:#4A90E2;
+}
+
+.ending a:hover{
+	color:#579ae7;
 }

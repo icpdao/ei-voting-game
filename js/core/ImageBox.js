@@ -6,7 +6,9 @@ function ImageBox(config){
 	// Create DOM
 	self.dom = new Image();
 	self.dom.className = "object";
-	self.dom.src = config.src;
+	self.dom.src = `/${config.src}`;
+
+	if (config.z_index) self.dom.style.zIndex = config.z_index;
 
 	// Customize
 	_configText(config, self.dom);

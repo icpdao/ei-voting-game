@@ -310,12 +310,6 @@ function Voter(config) {
     var _stopAutoPlay = function () {
         self.isAutoPlaying = false;
     };
-    listen(self, "tournament/autoplay/start", _startAutoPlay);
-    listen(self, "tournament/autoplay/stop", _stopAutoPlay);
-    listen(self, "tournament/step", function () {
-        publish("tournament/autoplay/stop");
-        _nextStep();
-    });
 
     // ANIMATE
     var _playIndex = 0;

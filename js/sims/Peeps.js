@@ -10,23 +10,29 @@ function PeepShow(config) {
     self.dom.style.left = config.x + "px";
     self.dom.style.top = config.y + "px";
 
+    var width = config.width || 700;
+    var height = config.height || 330;
+
     // APP
-    var app = new PIXI.Application(700, 330, { transparent: true, resolution: 2 });
+    var app = new PIXI.Application(width, height, { transparent: true, resolution: 2 });
     self.app = app;
-    app.view.style.width = 700;
-    app.view.style.height = 330;
+    app.view.style.width = width;
+    app.view.style.height = height;
     self.dom.appendChild(app.view);
 
     ///////////////////////////////////////////////
     //////////////// THE GRAPHICS /////////////////
     ///////////////////////////////////////////////
+    var offsetX = config.offsetX || [230, 230, 230];
+    var offsetY = config.offsetY || [100, 200, 300];
+    var scale = config.scale || [0.3, 0.3, 0.3];
 
     // Peep
-    self.playerHonest = new PeepStand({ id: 'honest', y: 100 });
+    self.playerHonest = new PeepStand({ id: 'honest', x: offsetX[0], scale: scale[0], y: offsetY[0] });
     app.stage.addChild(self.playerHonest.graphics);
-    self.playerGreedy = new PeepStand({ id: 'greedy', y: 200 });
+    self.playerGreedy = new PeepStand({ id: 'greedy', x: offsetX[1], scale: scale[1], y: offsetY[1] });
     app.stage.addChild(self.playerGreedy.graphics);
-    self.playerOneself = new PeepStand({ id: 'oneself', y: 300 });
+    self.playerOneself = new PeepStand({ id: 'oneself', x: offsetX[2], scale: scale[2], y: offsetY[2] });
     app.stage.addChild(self.playerOneself.graphics);
 
     app.ticker.add(function (delta) {
@@ -51,6 +57,12 @@ function PeepShow(config) {
     ///////////// ADD, REMOVE, KILL ///////////////
     ///////////////////////////////////////////////
 
+    self.move = function (loc) {
+        self.playerHonest.move(loc);
+        self.playerGreedy.move(loc);
+        self.playerOneself.move(loc);
+    };
+
     // Add...
     self.add = function () {
         _add(self);
@@ -72,6 +84,7 @@ function PeepShow(config) {
 function PeepStand(config) {
     var self = this;
     self.config = config;
+    var scale = config.scale || 0.3;
 
     // Peep
     self.graphics = new PIXI.Container();
@@ -82,23 +95,23 @@ function PeepStand(config) {
     g.addChild(self.animated);
 
     // Body
-    self.body = _makeMovieClip("iterated_peep", { scale: 0.3, anchorX: 0.5, anchorY: 0.95 });
+    self.body = _makeMovieClip("iterated_peep", { scale, anchorX: 0.5, anchorY: 0.95 });
     self.animated.addChild(self.body);
 
     // Hat
-    self.hat = _makeMovieClip("iterated_peep", { scale: 0.3, anchorX: 0.5, anchorY: 0.95 });
+    self.hat = _makeMovieClip("iterated_peep", { scale, anchorX: 0.5, anchorY: 0.95 });
     self.animated.addChild(self.hat);
     self.hat.gotoAndStop(12);
     self.hat.gotoAndStop(13 + PEEP_METADATA[config.id].frame);
 
     // Face
-    self.face = _makeMovieClip("iterated_peep", { scale: 0.3, anchorX: 0.5, anchorY: 0.95 });
+    self.face = _makeMovieClip("iterated_peep", { scale, anchorX: 0.5, anchorY: 0.95 });
     self.animated.addChild(self.face);
     self.face.gotoAndStop(1);
     self.restingFace = true;
 
     // Eyebrows
-    self.eyebrows = _makeMovieClip("iterated_peep", { scale: 0.3, anchorX: 0.5, anchorY: 0.95 });
+    self.eyebrows = _makeMovieClip("iterated_peep", { scale, anchorX: 0.5, anchorY: 0.95 });
     self.eyebrows.visible = false;
     self.animated.addChild(self.eyebrows);
 
@@ -111,7 +124,7 @@ function PeepStand(config) {
 
     // Position & Flip?
     g.y = config.y || 236;
-    g.x = 230;
+    g.x = config.x || 230;
     //g.rotation = 1;
 
     /////////////////////////////////////////////
@@ -149,6 +162,12 @@ function PeepStand(config) {
                 _hopTimer = 0;
             }
         }
+    };
+    self.move = function (loc) {
+        Tween_get(self.animated)
+            .to({ x: loc.x }, _s(2), Ease.circOut)
+            .wait(_s(loc.w))
+            .call(function () { });
     };
     // KILL
     self.kill = function () {

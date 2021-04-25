@@ -40,12 +40,12 @@ subscribe("rules/turns",function(value){
 
 // REGULAR LOAD
 Loader.addToManifest(Loader.manifest,{
-	tournament_peep: "assets/tournament/tournament_peep.json",
-	connection_flower: "assets/tournament/connection_flower.json",
+	tournament_peep: "/assets/tournament/tournament_peep.json",
+	connection_flower: "/assets/tournament/connection_flower.json",
 
 	// SFX
-	squeak: "assets/sounds/squeak.mp3",
-	bonk: "assets/sounds/bonk.mp3"
+	squeak: "/assets/sounds/squeak.mp3",
+	bonk: "/assets/sounds/bonk.mp3"
 
 });
 
@@ -53,15 +53,17 @@ function Tournament(config){
 
 	var self = this;
 	self.id = config.id;
+	self.width = config.width || 500;
+	self.height = config.height || 500;
 	
 	// APP
-	var app = new PIXI.Application(500, 500, {transparent:true, resolution:2});
+	var app = new PIXI.Application(self.width, self.height, {transparent:true, resolution:2});
 	self.dom = app.view;
 
 	// DOM
 	self.dom.className = "object";
-	self.dom.style.width = 500;
-	self.dom.style.height = 500;
+	self.dom.style.width = self.width;
+	self.dom.style.height = self.height;
 	self.dom.style.left = config.x+"px";
 	self.dom.style.top = config.y+"px";
 	//self.dom.style.border = "1px solid rgba(0,0,0,0.2)";
@@ -206,7 +208,6 @@ function Tournament(config){
 
 		// Actually PLAY the game -- HACK: HARD-CODE 10 ROUNDS
 		var scores = PD.playRepeatedGame(match[0], match[1], 10);
-
 		// Return ALL this data...
 		return {
 			charA: match[0].strategyName,
@@ -311,10 +312,10 @@ function Tournament(config){
 	self.isAutoPlaying = false;
 	var _step = 0;
 	var _nextStep = function(){
-		if(self.STAGE!=STAGE_REST) return;
-		if(_step==0) publish("tournament/play");
-		if(_step==1) publish("tournament/eliminate");
-		if(_step==2) publish("tournament/reproduce");
+		if(self.STAGE != STAGE_REST) return;
+		if(_step == 0) publish("tournament/play");
+		if(_step == 1) publish("tournament/eliminate");
+		if(_step == 2) publish("tournament/reproduce");
 		_step = (_step+1)%3;
 	};
 	var _startAutoPlay = function(){
@@ -344,26 +345,18 @@ function Tournament(config){
 
 		// PLAY!
 		if(self.STAGE == STAGE_PLAY){
-			/*if(self.isAutoPlaying){
+			if(_playIndex>0 && _playIndex<self.agents.length+1) self.agents[_playIndex-1].dehighlightConnections();
+			if(_playIndex>1 && _playIndex<self.agents.length+2) self.agents[_playIndex-2].dehighlightConnections();
+			if(_playIndex<self.agents.length){
+				self.agents[_playIndex].highlightConnections();
+				_playIndex += self.isAutoPlaying ? 2 : 1;
+			}else{
 				self.playOneTournament(); // FOR REAL, NOW.
 				_playIndex = 0;
 				_tweenTimer = 0;
 				self.STAGE = STAGE_REST;
 				publish("tournament/step/completed", ["play"]);
-			}else{*/
-				if(_playIndex>0 && _playIndex<self.agents.length+1) self.agents[_playIndex-1].dehighlightConnections();
-				if(_playIndex>1 && _playIndex<self.agents.length+2) self.agents[_playIndex-2].dehighlightConnections();
-				if(_playIndex<self.agents.length){
-					self.agents[_playIndex].highlightConnections();
-					_playIndex += self.isAutoPlaying ? 2 : 1;
-				}else{
-					self.playOneTournament(); // FOR REAL, NOW.
-					_playIndex = 0;
-					_tweenTimer = 0;
-					self.STAGE = STAGE_REST;
-					publish("tournament/step/completed", ["play"]);
-				}
-			//}
+			}
 		}
 
 		// ELIMINATE!
@@ -587,6 +580,10 @@ function TournamentAgent(config){
 	self.coins = 0;
 	self.addPayoff = function(payoff){
 		self.coins += payoff;
+		self.updateScore();
+	};
+	self.setRV = function (rv) {
+		self.coins = rv;
 		self.updateScore();
 	};
 

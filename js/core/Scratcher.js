@@ -1,6 +1,6 @@
 Loader.addToManifest(Loader.manifest,{
-	scratch_in: "assets/sounds/scratch_in.mp3",
-	scratch_out: "assets/sounds/scratch_out.mp3"
+	scratch_in: "/assets/sounds/scratch_in.mp3",
+	scratch_out: "/assets/sounds/scratch_out.mp3"
 });
 
 (function(exports){
