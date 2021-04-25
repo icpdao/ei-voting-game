@@ -127,7 +127,7 @@ SLIDES.push({
         var paired = kmSimplePair(_.pair);
         console.log(paired);
 
-        const color = { 1: '#5088D7', 2: '#52547C', 3: '#F6C06F' };
+        const color = { 1: '#F6C06F', 2: '#52547C', 3: '#5088D7' };
         var tmpOffset = 0;
         var peepOffsetX = [];
         var preX = 0;
