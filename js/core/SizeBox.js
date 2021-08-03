@@ -10,6 +10,7 @@ function SizeBox(config) {
 
     // Customize
     _configText(config, self.dom);
+    self.dom.style.fontSize = 14;
     
     // Set Size!
     self.setSize = function (size) {
